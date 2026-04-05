@@ -6,7 +6,7 @@ Zorlytics is a comprehensive client-side financial management dashboard built wi
 By leveraging advanced state management and local storage persistence, Zorlytics delivers a robust, production-ready experience without requiring a backend, making it highly responsive and accessible.
 
 **Live Demo**
-- Live Demo Link: [https://elementum-landing-cghik5sw3-nihar-padaves-projects.vercel.app/](https://elementum-landing-cghik5sw3-nihar-padaves-projects.vercel.app/)
+- Live Demo Link: [Zorlytics-Financial-Dashboard](https://zorlytics-financial-dashboard.vercel.app/)
 
 ---
 
