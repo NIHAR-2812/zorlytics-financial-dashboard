@@ -9,7 +9,7 @@ import ThemeToggle from './components/ThemeToggle';
 import RoleSwitcher from './components/RoleSwitcher';
 import { Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Toaster } from 'react-hot-toast'; // NEW: Imported Toaster
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   const [activePage, setActivePage] = useState('dashboard');
@@ -44,7 +44,8 @@ const App = () => {
         }}
       />
 
-      <div className="flex h-screen bg-background text-slate-800 overflow-hidden font-sans">
+      {/* Main Layout Wrapper: Added dark:bg-slate-900 and dark:text-slate-100 */}
+      <div className="flex h-screen bg-background dark:bg-slate-900 text-slate-800 dark:text-slate-100 overflow-hidden font-sans transition-colors">
         
         <Sidebar 
           activePage={activePage} 
@@ -55,11 +56,12 @@ const App = () => {
 
         <div className="flex-1 flex flex-col h-full overflow-hidden relative">
           
-          <header className="h-20 bg-surface border-b border-slate-200 flex items-center justify-between px-4 md:px-8 shrink-0 transition-colors">
+          {/* Header: Added dark:bg-slate-900 and dark:border-slate-800 */}
+          <header className="h-20 bg-surface dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 md:px-8 shrink-0 transition-colors">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setIsSidebarOpen(true)}
-                className="p-2 md:hidden rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 transition-colors"
+                className="p-2 md:hidden rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50"
               >
                 <Menu size={20} />
               </button>

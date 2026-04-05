@@ -19,22 +19,22 @@ const Sidebar = ({ activePage, setActivePage, isOpen, setIsOpen }) => {
         />
       )}
 
-      {/* Sidebar Container */}
+      {/* Sidebar Container: Added dark:bg-slate-900 and dark:border-slate-800 */}
       <aside 
         className={`
-          fixed inset-y-0 left-0 z-50 w-64 bg-surface border-r border-slate-200 
+          fixed inset-y-0 left-0 z-50 w-64 bg-surface dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 
           flex flex-col transition-transform duration-300 ease-in-out 
           md:relative md:translate-x-0 
           ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         `}
       >
-        {/* Sidebar Header */}
-        <div className="h-20 flex items-center gap-3 px-8 border-b border-slate-200 shrink-0">
+        {/* Sidebar Header: Added dark:border-slate-800 */}
+        <div className="h-20 flex items-center gap-3 px-8 border-b border-slate-200 dark:border-slate-800 shrink-0 transition-colors">
           <div className="bg-primary p-2 rounded-xl text-white">
             <Wallet size={24} />
           </div>
           <h1 className="text-xl font-bold text-slate-800 dark:text-white">
-            Zorlytics
+            FinDash
           </h1>
         </div>
 
@@ -49,19 +49,19 @@ const Sidebar = ({ activePage, setActivePage, isOpen, setIsOpen }) => {
                 key={item.id}
                 onClick={() => {
                   setActivePage(item.id);
-                  setIsOpen(false); // Auto-close on mobile
+                  setIsOpen(false); 
                 }}
                 className={`
                   flex items-center gap-3 px-4 py-3 rounded-r-xl transition-all duration-200 ease-in-out text-left border-l-4 
                   ${isActive 
-                    ? 'bg-primary/10 text-primary border-primary font-bold' 
-                    : 'border-transparent text-slate-500 hover:bg-slate-50 hover:text-slate-800' 
+                    ? 'bg-primary/10 text-primary border-primary font-bold dark:bg-primary/20 dark:text-blue-400' 
+                    : 'border-transparent text-slate-500 hover:bg-slate-50 hover:text-slate-800 dark:text-slate-400 dark:hover:bg-slate-800/50 dark:hover:text-slate-200' 
                   }
                 `}
               >
                 <Icon 
                   size={20} 
-                  className={`transition-colors duration-200 ${isActive ? 'text-primary' : 'text-slate-400'}`} 
+                  className={`transition-colors duration-200 ${isActive ? 'text-primary dark:text-blue-400' : 'text-slate-400'}`} 
                 />
                 {item.label}
               </button>
