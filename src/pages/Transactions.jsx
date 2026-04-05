@@ -4,6 +4,7 @@ import { AppContext } from '../context/AppContext';
 import TransactionsTable from '../components/TransactionsTable';
 import { Plus, Download, ChevronLeft, ChevronRight, Search, X, Trash2 } from 'lucide-react';
 import { formatCurrency } from '../utils/formatCurrency';
+import toast from 'react-hot-toast';
 
 const Transactions = () => {
   const { 
@@ -156,6 +157,54 @@ const Transactions = () => {
     setIsModalOpen(false);
   };
 
+  // --- UPDATED: Smart CSV Export Handler ---
+  const handleExportCSV = () => {
+    // Determine which data to export: explicitly selected rows, or all filtered rows
+    const dataToExport = selectedIds.length > 0 
+      ? processedTransactions.filter(t => selectedIds.includes(t.id))
+      : processedTransactions;
+
+    if (!dataToExport || dataToExport.length === 0) {
+      toast.error('No transactions to export!');
+      return;
+    }
+
+    const headers = ['Date', 'Category', 'Type', 'Amount (₹)'];
+
+    const csvRows = dataToExport.map(t => [
+      t.date,
+      `"${t.category}"`, 
+      t.type,
+      t.amount
+    ]);
+
+    const csvContent = [
+      headers.join(','),
+      ...csvRows.map(row => row.join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    
+    // Make the filename dynamic based on whether it is a partial or full export
+    const filePrefix = selectedIds.length > 0 ? 'selected' : 'all';
+    link.setAttribute('download', `findash_${filePrefix}_transactions_${new Date().toISOString().split('T')[0]}.csv`);
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    
+    toast.success(
+      selectedIds.length > 0 
+        ? `${selectedIds.length} selected transactions exported!` 
+        : 'All visible transactions exported!'
+    );
+  };
+
   // Shared CSS class for modal form inputs
   const sharedInputClasses = "w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 text-slate-800 dark:text-white";
 
@@ -174,9 +223,12 @@ const Transactions = () => {
         </div>
         
         <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
-          <button className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-4 py-2 border border-slate-200 dark:border-slate-700 bg-surface text-slate-700 dark:text-slate-300 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm text-sm md:text-base whitespace-nowrap">
+          <button 
+            onClick={handleExportCSV}
+            className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-2 md:px-4 py-2 border border-slate-200 dark:border-slate-700 bg-surface text-slate-700 dark:text-slate-300 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors shadow-sm text-sm md:text-base whitespace-nowrap"
+          >
             <Download size={16} className="md:w-5 md:h-5" />
-            <span>Export CSV</span>
+            <span>{selectedIds.length > 0 ? `Export (${selectedIds.length})` : 'Export CSV'}</span>
           </button>
           
           <div className="relative group flex-1 sm:flex-none">
