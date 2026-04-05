@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #f1f5f9;
+  --color-surface: #ffffff;
+  --color-primary: #0ea5e9;
+}
+
+/* * Global Dark Mode Color Inversion
+ * Inverts the slate color palette at the root level to minimize the 
+ * need for redundant "dark:bg-..." utility classes across components.
+ */
+.dark {
+  /* Main Backgrounds */
+  --color-background: #0f172a;
+  --color-surface:    #1e293b;
+  
+  /* Slate Palette Inversion */
+  --color-slate-50:   #0f172a; /* Darken light backgrounds (inputs, table headers) */
+  --color-slate-100:  #1e293b; /* Darken hover states */
+  --color-slate-200:  #334155; /* Darken borders */
+  --color-slate-300:  #475569;
+  --color-slate-400:  #94a3b8; /* Lighten muted icons */
+  --color-slate-500:  #cbd5e1; /* Lighten muted text */
+  --color-slate-600:  #e2e8f0;
+  --color-slate-700:  #f1f5f9;
+  --color-slate-800:  #f8fafc; /* Lighten bold text (headings) */
+  --color-slate-900:  #ffffff;
+}
+
+/* Global Transitions */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-slate-800);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
