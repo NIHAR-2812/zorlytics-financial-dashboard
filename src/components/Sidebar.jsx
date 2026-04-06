@@ -34,7 +34,7 @@ const Sidebar = ({ activePage, setActivePage, isOpen, setIsOpen }) => {
             <Wallet size={24} />
           </div>
           <h1 className="text-xl font-bold text-slate-800 dark:text-white">
-            FinDash
+            Zorlytics
           </h1>
         </div>
 
